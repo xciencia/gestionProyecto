@@ -1,0 +1,71 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>OberStaff Project</title>
+    <link rel="shortcut icon" type="image/png" href="{% static 'assets/images/logos/favicon.png' %}"/>
+    <link href="{% static 'assets/css/styles.min.css' %}" rel="stylesheet"/>
+    <link rel="stylesheet" href="{% static 'assets/css/styles.min.css' %}"/>
+</head>
+
+<body>
+<!--  Body Wrapper -->
+<div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+     data-sidebar-position="fixed" data-header-position="fixed">
+    <div
+            class="position-relative overflow-hidden text-bg-light min-vh-100 d-flex align-items-center justify-content-center">
+        <div class="d-flex align-items-center justify-content-center w-100">
+            <div class="row justify-content-center w-100">
+                <div class="col-md-8 col-lg-6 col-xxl-3">
+                    <div class="card mb-0">
+                        <div class="card-body">
+                           
+                            <p class="text-center">
+                                 <img class="text-center" src="{% static 'assets/images/logos/rocket.svg' %}" alt="" width="25">
+                            </p>
+                            <p class="text-center">
+                                OberStaff Project
+                            </p>
+                        
+                            <form method="post" action="{% url 'iniciar_sesion' %}">
+                                {% csrf_token %}
+
+                                <div class="mb-3">
+                                    <label for="exampleInputEmail1" class="form-label">Username</label>
+                                    <input id="id_username" name="username" type="text" class="form-control"
+                                           aria-describedby="emailHelp">
+                                </div>
+                                <div class="mb-4">
+                                    <label for="exampleInputPassword1" class="form-label">Password</label>
+                                    <input id="id_password" name="password" type="password" class="form-control">
+                                </div>
+                                <button class="btn btn-primary w-100 py-8 fs-4 mb-4" type="submit">
+                                    Enviar
+                                </button>
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <p class="fs-4 mb-0 fw-bold">Nuevo usuario?</p>
+                                    <a class="text-primary fw-bold ms-2" href="{% url 'registro' %}">Crear una
+                                        cuenta</a>
+                                </div>
+                            </form>
+                            {% if error %}
+                                <p class="bg-danger text-center my-3">{{ error }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script src="../assets/libs/jquery/dist/jquery.min.js"></script>
+<script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<!-- solar icons -->
+<script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
+</body>
+
+</html>

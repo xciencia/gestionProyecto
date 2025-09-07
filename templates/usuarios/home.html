@@ -1,0 +1,251 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Home</title>
+    <link rel="shortcut icon" type="image/png" href="{% static 'assets/images/logos/favicon.png' %}"/>
+    <link rel="stylesheet" href="{% static 'assets/css/styles.min.css' %}"/>
+    {% block Css %} {% endblock %}
+</head>
+
+<body>
+<!--  Body Wrapper -->
+<div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+     data-sidebar-position="fixed" data-header-position="fixed">
+
+    <!--  App Topstrip -->
+    <div class="app-topstrip bg-dark py-6 px-3 w-100 d-lg-flex align-items-center justify-content-between">
+        <div class="d-flex align-items-center justify-content-center gap-5 mb-2 mb-lg-0">
+
+            <div class="d-none d-xl-flex align-items-center gap-3">
+                <a href="{% url 'iniciar_sesion' %}"
+                   class="btn btn-outline-primary d-flex align-items-center gap-1 border-0 text-white px-6">
+                    <img src="{% static 'assets/images/logos/rocket.svg' %}" alt="" width="25">
+                    OberStaff Project
+                </a>
+            </div>
+        </div>
+
+    </div>
+    <!-- Sidebar Start -->
+    <aside class="left-sidebar">
+        <!-- Sidebar scroll-->
+        <div>
+            <div class="text-center my-2 bg-light-info">
+                <h6>{{ user.username }}</h6>
+            </div>
+            <div class="text-center my-1 bg-body-secondary">
+                <h6>{{ user.rol }}</h6>
+            </div>
+            <!-- Sidebar navigation-->
+            <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
+                <ul id="sidebarnav">
+                    <li class="nav-small-cap">
+                        <iconify-icon icon="solar:menu-dots-linear" class="nav-small-cap-icon fs-4"></iconify-icon>
+                        <span class="hide-menu">Home</span>
+                    </li>
+
+                    {% if user.rol in 'administrador colaborador ' %}
+
+                        <li class="sidebar-item">
+                            <a class="sidebar-link primary-hover-bg justify-content-between"
+                               href="{% url 'listado-proyecto' %}" aria-expanded="false">
+                                <div class="d-flex align-items-center gap-6">
+                  <span class="d-flex">
+                     <iconify-icon icon="solar:atom-line-duotone"></iconify-icon>
+                  </span>
+                                    <span class="hide-menu">Proyecto</span>
+                                </div>
+                                <span id="proyectos"
+                                      class="hide-menu badge text-bg-primary fs-1 py-1 px-2 rounded-pill"></span>
+                            </a>
+                        </li>
+
+
+                        <li class="sidebar-item">
+                            <a class="sidebar-link primary-hover-bg justify-content-between"
+                               href="{% url 'listado-tarea' %}" aria-expanded="false">
+                                <div class="d-flex align-items-center gap-6">
+                  <span class="d-flex">
+                    <iconify-icon icon="solar:screencast-2-line-duotone" class=""></iconify-icon>
+                  </span>
+                                    <span class="hide-menu">Tarea</span>
+                                </div>
+                                <span id="tareas"
+                                      class="hide-menu badge text-bg-warning fs-1 py-1 px-2 rounded-pill"></span>
+                            </a>
+                        </li>
+                    {% endif %}
+
+                    {% if user.rol in 'administrador' %}
+                        <li class="sidebar-item">
+                            <a class="sidebar-link primary-hover-bg justify-content-between"
+                               href="{% url 'listado-asignacion-proyecto' %}" aria-expanded="false">
+                                <div class="d-flex align-items-center gap-6">
+                  <span class="d-flex">
+                     <iconify-icon icon="solar:accessibility-line-duotone" class=""></iconify-icon>
+                  </span>
+                                    <span class="hide-menu">Asig. de Usuarios</span>
+                                </div>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item">
+                            <a class="sidebar-link primary-hover-bg justify-content-between"
+                               href="{% url 'listado-rol' %}" aria-expanded="false">
+                                <div class="d-flex align-items-center gap-6">
+                  <span class="d-flex">
+                      <iconify-icon icon="solar:shield-user-line-duotone" class=""></iconify-icon>
+                  </span>
+                                    <span class="hide-menu">Rol de Usuarios</span>
+                                </div>
+                            </a>
+                        </li>
+                    {% endif %}
+
+                    <li class="sidebar-item">
+                        <a class="sidebar-link primary-hover-bg justify-content-between" target="_blank"
+                           href="{% url 'listado-comentario' %}"
+                           aria-expanded="false">
+                            <div class="d-flex align-items-center gap-6">
+                  <span class="d-flex">
+                    <iconify-icon icon="solar:document-text-line-duotone" class=""></iconify-icon>
+                  </span>
+                                <span class="hide-menu">Comentarios</span>
+                            </div>
+                            <span id="comentarios"
+                                  class="hide-menu badge text-bg-secondary fs-1 py-1 px-2 rounded-pill"></span>
+                        </a>
+                    </li>
+
+                </ul>
+
+            </nav>
+            <!-- End Sidebar navigation -->
+        </div>
+        <!-- End Sidebar scroll-->
+    </aside>
+    <!--  Sidebar End -->
+    <!--  Main wrapper -->
+    <div class="body-wrapper">
+
+        <div class="body-wrapper-inner">
+            <div class="container-fluid">
+                <!--  Header Start -->
+                <header class="app-header">
+                    <nav class="navbar navbar-expand-lg navbar-light">
+                        <ul class="navbar-nav">
+                            <li class="nav-item d-block d-xl-none">
+                                <a class="nav-link sidebartoggler" id="headerCollapse" href="javascript:void(0)">
+                                    <i class="ti ti-menu-2"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <div class="dropdown-menu dropdown-menu-animate-up" aria-labelledby="drop1">
+                                    <div class="message-body">
+                                        <a href="javascript:void(0)" class="dropdown-item">
+                                            Item 1
+                                        </a>
+                                        <a href="javascript:void(0)" class="dropdown-item">
+                                            Item 2
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
+                            <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
+                                <a href="{% url 'cerrar_sesion' %}"
+                                   class="btn btn-primary">Cerrar</a>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link " href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
+                                       aria-expanded="false">
+                                        <img src="{% static 'assets/images/profile/user1.jpg' %}" alt="" width="35"
+                                             height="35"
+                                             class="rounded-circle">
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up"
+                                         aria-labelledby="drop2">
+                                        <div class="message-body">
+                                            <a href="javascript:void(0)"
+                                               class="d-flex align-items-center gap-2 dropdown-item">
+                                                <i class="ti ti-user fs-6"></i>
+                                                <p class="mb-0 fs-3">My Profile</p>
+                                            </a>
+                                            <a href="javascript:void(0)"
+                                               class="d-flex align-items-center gap-2 dropdown-item">
+                                                <i class="ti ti-mail fs-6"></i>
+                                                <p class="mb-0 fs-3">My Account</p>
+                                            </a>
+                                            <a href="javascript:void(0)"
+                                               class="d-flex align-items-center gap-2 dropdown-item">
+                                                <i class="ti ti-list-check fs-6"></i>
+                                                <p class="mb-0 fs-3">My Task</p>
+                                            </a>
+                                            <a href="./authentication-login.html"
+                                               class="btn btn-outline-primary mx-3 mt-2 d-block">Logout</a>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </header>
+                <!--  Header End -->
+
+                {% block content %}
+
+
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="{% static 'assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'assets/js/sidebarmenu.js' %}"></script>
+<script src="{% static 'assets/js/app.min.js' %}"></script>
+<script src="{% static 'assets/libs/apexcharts/dist/apexcharts.min.js' %}"></script>
+<script src="{% static 'assets/libs/simplebar/dist/simplebar.js' %}"></script>
+<script src="{% static 'assets/js/dashboard.js' %}"></script>
+<!-- solar icons -->
+
+{% block Js %}
+    <script>
+
+        function updateBadget() {
+            $.ajax({
+                method: "GET",
+                url: "/badgets/",
+            }).done(function (Response) {
+                if (Response['proyectos'] > 0) $('#proyectos').html(Response['proyectos']);
+                if (Response['tareas'] > 0) $('#tareas').html(Response['tareas']);
+                if (Response['comentarios'] > 0) $('#comentarios').html(Response['comentarios']);
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                console.log("Request failed: " + textStatus);
+                console.log("Request failed: " + errorThrown);
+            });
+        }
+
+        $(document).ready(function () {
+
+
+            updateBadget();
+
+            setInterval(function () {
+                updateBadget();
+            }, 2000);
+        });
+    </script>
+{% endblock %}
+
+
+<script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
+
+</body>
+
+</html>
